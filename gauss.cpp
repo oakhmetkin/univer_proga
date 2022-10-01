@@ -153,7 +153,7 @@ public:
 		cout << ")" << endl;
 	}
 
-//private:
+private:
 	double** A = nullptr; // матрица системы
 	double* x = nullptr; // столбец-решение системы
 	double* y = nullptr; // столбец свободных членов системы
