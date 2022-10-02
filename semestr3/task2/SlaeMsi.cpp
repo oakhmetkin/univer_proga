@@ -33,7 +33,7 @@ void SlaeMsi::solve_slae()
 
 	double m = matrix_norm(B) / (1 - matrix_norm(B));
 
-	while (vec_norm(x_prev, x) * m > eps && iters < iters_threshold)
+	while (vec_sub(x_prev, x) * m > eps && iters < iters_threshold)
 	{
 		delete[] x_prev;
 		x_prev = x;
@@ -91,7 +91,7 @@ void SlaeMsi::read_slae_from_file(const char* filename)
 
 void SlaeMsi::init_values()
 {
-	mu = 2 / (matrix_norm(A) + mu_epsilon);
+	double mu = 2 / (matrix_norm(A) + mu_epsilon);
 
 	for (size_t i = 0; i < n; i++)
 		c[i] = mu * y[i];
@@ -119,7 +119,7 @@ double* SlaeMsi::iter()
 	return x_new;
 }
 
-double SlaeMsi::vec_norm(double* a, double* b)
+double SlaeMsi::vec_sub(double* a, double* b)
 {
 	double sum = 0;
 
@@ -131,8 +131,6 @@ double SlaeMsi::vec_norm(double* a, double* b)
 
 void SlaeMsi::print_params()
 {
-	cout << "\tmu = " << mu << endl;
-
 	cout << "\tc = (";
 	for (size_t i = 0; i < n; i++)
 		if (i < n - 1) cout << c[i] << ", ";
