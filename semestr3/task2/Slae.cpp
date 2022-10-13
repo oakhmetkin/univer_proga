@@ -41,7 +41,6 @@ Slae::~Slae()
 	delete[] y;
 }
 
-// прочитать систему из файла
 void Slae::read_slae_from_file(const char* filename)
 {
 	ifstream fin(filename);
@@ -78,8 +77,7 @@ void Slae::read_slae_from_file(const char* filename)
 	fin.close();
 }
 
-// распечатать расширенную матрицу системы
-void Slae::print_slae()
+void Slae::print_slae(bool format_on)
 {
 	cout << "Extended matrix of SLAE:" << endl;
 
@@ -87,7 +85,10 @@ void Slae::print_slae()
 	{
 		for (size_t j = 0; j < n; j++)
 		{
-			cout << A[i][j] << "  ";
+			if (format_on)
+				printf("% 6.2f", A[i][j]);
+			else
+				cout << A[i][j] << "  ";
 		}
 
 		cout << "|  " << y[i] << endl;
@@ -96,7 +97,6 @@ void Slae::print_slae()
 	cout << endl;
 }
 
-// распечатать решение
 void Slae::print_solution()
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);
@@ -116,7 +116,6 @@ void Slae::print_solution()
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 }
 
-// поменять i, j строчки местами
 void Slae::change_rows(int i, int j)
 {
 	double* row1 = A[i];
@@ -128,7 +127,6 @@ void Slae::change_rows(int i, int j)
 	y[j] = yrow1;
 }
 
-// домножить i строчку на скаляр
 void Slae::multiply_row(int i, double alpha)
 {
 	for (size_t j = 0; j < n; j++)
@@ -137,7 +135,6 @@ void Slae::multiply_row(int i, double alpha)
 	y[i] *= alpha;
 }
 
-// прибавить к i строчке j строчку, домжноженную на скаляр
 void Slae::add_row(int i, int j, double alpha)
 {
 	if (i < 0 || j < 0 || i >= n || j >= n)
@@ -150,4 +147,13 @@ void Slae::add_row(int i, int j, double alpha)
 		A[i][k] += alpha * A[j][k];
 
 	y[i] += alpha * y[j];
+}
+
+void Slae::add_mtx(double k)
+{
+	int N = 13; // индивидуальное число для каждого студента
+	
+	for (size_t i = 0; i < n; i++)
+		for (size_t j = 0; j < n; j++)
+			A[i][j] += k * N * (-1 + 2 * (i >= j));
 }

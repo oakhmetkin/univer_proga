@@ -2,28 +2,59 @@
 #include <fstream>
 #include "SlaeGaussSolver.h"
 #include "SlaeMsi.h"
+#include <Windows.h>
 
 using namespace std;
 
 int main()
 {
-	SlaeGaussSolver slae(3);
-	slae.read_slae_from_file("slae1.txt");
-	slae.print_slae();
-	slae.solve_slae();
+	// GOOD CONDITIONAL matrix
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+	cout << "Solution for GOOD CONDITIONAL matrix:" << endl;
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+
+	SlaeGaussSolver gauss1(3);
+	gauss1.read_slae_from_file("slae1.txt");
+	gauss1.print_slae();
+	gauss1.solve_slae();
 	cout << "Gauss solution: ";
-	slae.print_solution();
+	gauss1.print_solution();
 
-	cout << endl << endl;
+	cout << endl;
 
-	SlaeMsi msi(3, 0.001, 0.1, 100);
-	msi.read_slae_from_file("slae1.txt");
-	cout << "MSI parameters:" << endl;
-	msi.print_params();
-
-	msi.solve_slae();
+	SlaeMsi msi1(3, 1e-3, 1e-4, 100);
+	msi1.read_slae_from_file("slae1.txt");
+	msi1.solve_slae();
 	cout << "MSI solution: ";
-	msi.print_solution();
+	msi1.print_solution();
 
+
+	
+	// POOR CONDITIONAL matrix
+	cout << "\n\n\n\n";
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+	cout << "Solution for POOR CONDITIONAL matrix:" << endl;
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+
+	double eps = 1e-3;
+
+	SlaeGaussSolver gauss2(4);
+	gauss2.read_slae_from_file("slae2.txt");
+	gauss2.add_mtx(eps);
+	gauss2.print_slae();
+	gauss2.solve_slae();
+	cout << "Gauss solution: ";
+	gauss2.print_solution();
+
+	cout << endl;
+
+	SlaeMsi msi2(4, -0.12, 1e-5, 1000);
+	msi2.read_slae_from_file("slae2.txt");
+	msi2.add_mtx(eps);
+	msi2.solve_slae();
+	cout << "MSI solution: ";
+	msi2.print_solution();
+
+	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 	return 0;
 }

@@ -10,13 +10,16 @@ public:
 	virtual void read_slae_from_file(const char* filename);
 
 	// распечатать расширенную матрицу системы
-	void print_slae();
+	void print_slae(bool format_on = false);
 
 	// решить систему
 	virtual void solve_slae() = 0;
 
 	// распечатать решение
-	void print_solution();
+	virtual void print_solution();
+
+	// для задания 3 (прибавить матрицу, умноженную на некоторый 10e-6 <= eps <= 10e-3)
+	void add_mtx(double k);
 
 protected:
 	double** A = nullptr; // матрица системы

@@ -4,7 +4,7 @@
 class SlaeMsi : public Slae
 {
 public:
-	SlaeMsi(int n, double mu_eps=10e-3, double eps = 10e-3, int iters_threshold = 1000);
+	SlaeMsi(int n, double mu_eps=10e-3, double eps = 10e-3, int iters_threshold = 1000, bool is_warn = false);
 	void read_slae_from_file(const char* filename) override;
 	void solve_slae() override;
 
@@ -16,6 +16,7 @@ public:
 protected:
 	// макс. кол-во итераций
 	int iters_threshold;
+	bool is_need_warn;
 
 	// величины для итераций
 	double mu_epsilon = 10e-3;
@@ -36,4 +37,7 @@ protected:
 
 	// норма-1 вектора (a - b)
 	double vec_sub(double* a, double* b);
+
+	// транспонирование матрицы
+	double** transponate(double** mtx);
 };
