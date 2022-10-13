@@ -48,7 +48,7 @@ int main()
 
 	cout << endl;
 
-	SlaeMsi msi2(4, -0.12, 1e-5, 1000);
+	SlaeMsi msi2(4, 1e-3, 1e-5, 1000);
 	msi2.read_slae_from_file("slae2.txt");
 	msi2.add_mtx(eps);
 	msi2.solve_slae();
