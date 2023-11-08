@@ -1,0 +1,32 @@
+# Теория игр и исследование операций
+
+Решение задачи "Job shop scheduling"
+
+## Методы
+- GA (genetic algorithm)
+- B&B (branch and bounding)
+
+## Пример работы GA
+Сгенерируем случайную задачу с n=25 jobs и m=60 machines. Всего 8433 операций.
+
+**Время работы неоптимального решения:**\
+Old time: 110688
+Operations count: 8433
+
+**Процесс нахождения оптимального решения:**\
+Epoch: 1/10; Best sol: 34173\
+Epoch: 2/10; Best sol: 34044\
+Epoch: 3/10; Best sol: 33397\
+Epoch: 4/10; Best sol: 33375\
+Epoch: 5/10; Best sol: 33375\
+Epoch: 6/10; Best sol: 33375\
+Epoch: 7/10; Best sol: 33375\
+Epoch: 8/10; Best sol: 33375\
+Epoch: 9/10; Best sol: 33375\
+Epoch: 10/10; Best sol: 33375
+
+**Время работы оптимального решения:**\
+Best time: 33375
+
+В `ga_60_epoches.txt` приведен пример работы алгоритма с большим кол-вом эпох.
+Лучшее время работы - 31732.
