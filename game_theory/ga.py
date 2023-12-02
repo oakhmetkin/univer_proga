@@ -51,7 +51,8 @@ def genetic_search(
         levels=4, 
         alive=10, 
         count=5, 
-        early_stopping=None):
+        early_stopping=None,
+        verbose=True):
     '''
     Search optimal solution for Job Shop Scheduling problem.
     It is based on genetic algorithm with random mutations.
@@ -90,7 +91,13 @@ def genetic_search(
 
         best_est = estimate(solutions[0], n, m)
         best_times.append(best_est)
-        print(f'Epoch: {epoch+1}/{epoches}; Best sol: {best_est}')
+
+        if isinstance(verbose, bool) and verbose:
+            print(f'Epoch: {epoch+1}/{epoches}; Best sol: {best_est}')
+        elif isinstance(verbose, int) and \
+            verbose > 0 and \
+            (epoch + 1) % verbose == 0:
+            print(f'Epoch: {epoch+1}/{epoches}; Best sol: {best_est}')
 
         if early_stopping and len(best_times) > early_stopping:
             last = best_times[len(best_times)-early_stopping:]
@@ -102,11 +109,11 @@ def genetic_search(
                 print('Early stopping!')
                 break
     
-    return solutions[0]
+    return solutions[0], best_times
 
 
 if __name__ == '__main__':
-    n, m = 25, 60
+    n, m = 12, 6
 
     # generate random Job Shop scheduling task
     random.seed(42)
@@ -114,17 +121,14 @@ if __name__ == '__main__':
 
     for j in range(n):
         for i in range(m):
-            for _ in range(random.randint(1, 10)):
-                sol.append((j, i, random.randint(1, 25)))
+            sol.append((j, i, random.randint(1, 7)))
 
     # not optimal solution
     print('Old time:', estimate(sol, n, m))
-    print('Operations count:', len(sol), '\n')
 
     # solution from GA
     random.seed(42)
-    best_sol = genetic_search(sol, n, m, epoches=60, levels=4, 
-                              alive=20, count=8, early_stopping=5)
+    best_sol, best_times = genetic_search(sol, n, m, epoches=1000, levels=5, 
+                                alive=16, count=3, early_stopping=50, verbose=10)
     print('Best time:', estimate(best_sol, n, m))
-    # print(best_sol)
     print()
