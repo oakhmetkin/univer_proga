@@ -113,7 +113,7 @@ def genetic_search(
 
 
 if __name__ == '__main__':
-    n, m = 12, 6
+    n, m = 7, 2
 
     # generate random Job Shop scheduling task
     random.seed(42)
@@ -128,7 +128,10 @@ if __name__ == '__main__':
 
     # solution from GA
     random.seed(42)
-    best_sol, best_times = genetic_search(sol, n, m, epoches=1000, levels=5, 
-                                alive=16, count=3, early_stopping=50, verbose=10)
+    best_sol, best_times = genetic_search(
+        sol, n, m, epoches=1000, levels=5, alive=16, count=3,
+        early_stopping=50, verbose=10
+        )
     print('Best time:', estimate(best_sol, n, m))
+    print(best_sol)
     print()
