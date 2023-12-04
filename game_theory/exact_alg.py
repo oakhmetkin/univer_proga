@@ -53,8 +53,7 @@ def solve_jsp(n, m, processing_times, verbose=False):
                     if value(x[j, i, k]) == 1:
                         if verbose:
                             print(f"Job {j} on Machine {i} at Time {k} --- {processing_times[j][i]}")
-                        if (k, j, i, processing_times[j][i]) not in sol:
-                            sol.append((k, j, i, processing_times[j][i]))
+                        sol.append((k, j, i, processing_times[j][i]))
 
         
         # вернем решение в привычном формате
@@ -69,7 +68,7 @@ def solve_jsp(n, m, processing_times, verbose=False):
 
 
 if __name__ == '__main__':
-    n, m = 5, 2
+    n, m = 7, 2
 
     # generate random Job Shop scheduling task
     random.seed(42)
@@ -91,7 +90,7 @@ if __name__ == '__main__':
 
     # solution from MILP
     random.seed(42)
-    best_sol = solve_jsp(n, m, processing_times, verbose=False)
+    best_sol = solve_jsp(n, m, processing_times, verbose=True)
     if not best_sol:
         print('No optimal solution')
     print('Best time:', estimate(best_sol, n, m))
