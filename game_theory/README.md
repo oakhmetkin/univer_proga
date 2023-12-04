@@ -7,26 +7,19 @@
 - Точный метод для размерности 2xN (2 машины)
 
 ## Пример работы GA
-Сгенерируем случайную задачу с n=25 jobs и m=60 machines. Всего 8433 операций.
+Сгенерируем случайную задачу с n=50 jobs и m=15 machines.
 
-**Время работы неоптимального решения:**\
-Old time: 110688
-Operations count: 8433
-
-**Процесс нахождения оптимального решения:**\
-Epoch: 1/10; Best sol: 34173\
-Epoch: 2/10; Best sol: 34044\
-Epoch: 3/10; Best sol: 33397\
-Epoch: 4/10; Best sol: 33375\
-Epoch: 5/10; Best sol: 33375\
-Epoch: 6/10; Best sol: 33375\
-Epoch: 7/10; Best sol: 33375\
-Epoch: 8/10; Best sol: 33375\
-Epoch: 9/10; Best sol: 33375\
-Epoch: 10/10; Best sol: 33375
-
-**Время работы оптимального решения:**\
-Best time: 33375
-
-В `ga_60_epoches.txt` приведен пример работы алгоритма с большим кол-вом эпох.
-Лучшее время работы - 31732.
+Epoch: 50/1000; Best sol: 758
+Epoch: 100/1000; Best sol: 641
+Epoch: 150/1000; Best sol: 584
+Epoch: 200/1000; Best sol: 549
+Epoch: 250/1000; Best sol: 542
+Epoch: 300/1000; Best sol: 528
+Epoch: 350/1000; Best sol: 524
+Epoch: 400/1000; Best sol: 519
+Epoch: 450/1000; Best sol: 514
+Epoch: 500/1000; Best sol: 512
+Epoch: 550/1000; Best sol: 507
+Epoch: 600/1000; Best sol: 505
+Early stopping!
+Best time: 505
