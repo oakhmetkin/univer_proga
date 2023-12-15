@@ -4,3 +4,4 @@
 - numerical_methods - численные методы
 - optimization_methods - методы оптимизации
 - game_theory - теория игр и исследование операций
+- neuralnet - нейросетевые технологии
