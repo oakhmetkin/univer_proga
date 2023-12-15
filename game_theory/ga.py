@@ -1,5 +1,6 @@
 from math import ceil
 import random
+from functools import cmp_to_key
 from estimator import estimate
 
 
@@ -43,6 +44,18 @@ def parts_shuffle(lst, size, count=5):
     return shuffled_sols
 
 
+def sign(x):
+    if x == 0: return 0
+    return -1 if x < 0 else 1
+ 
+
+def compare(l, r):
+    if l[0] == r[0]:
+        return sign(l[1] - r[1])
+    else:
+        return 0
+
+
 def genetic_search(
         sol, 
         n, 
@@ -78,9 +91,14 @@ def genetic_search(
         for sol in solutions:
             for lvl in range(levels):
                 size = ceil(l / (lvl + 2))
-                new_sols.extend(parts_shuffle(sol, size, count))
+                candidates = parts_shuffle(sol, size, count)
+
+                for c in candidates:
+                    c = sorted(c, key=cmp_to_key(compare))
+
+                new_sols.extend(candidates)
             
-            new_sols.append(full_shuffle(sol))
+            new_sols.append(sorted(full_shuffle(sol), key=cmp_to_key(compare)))
         
         solutions.extend(new_sols)
 
@@ -106,14 +124,15 @@ def genetic_search(
             if any(last):
                 pass
             else:
-                print('Early stopping!')
+                if verbose:
+                    print('Early stopping!')
                 break
     
     return solutions[0], best_times
 
 
 if __name__ == '__main__':
-    n, m = 7, 2
+    n, m = 20, 20
 
     # generate random Job Shop scheduling task
     random.seed(42)
@@ -122,6 +141,8 @@ if __name__ == '__main__':
     for j in range(n):
         for i in range(m):
             sol.append((j, i, random.randint(1, 7)))
+    
+    sol.sort(key=cmp_to_key(compare))
 
     # not optimal solution
     print('Old time:', estimate(sol, n, m))
