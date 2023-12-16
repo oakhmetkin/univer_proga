@@ -5,7 +5,7 @@ from estimator import estimate
 
 def solve_jsp(n, m, processing_times, verbose=False):
     problem = LpProblem("Job_Shop_Scheduling", LpMinimize)
-    times = n
+    times = n*m
 
     x = LpVariable.dicts(
         "x", ((j, i, k) \
@@ -34,6 +34,14 @@ def solve_jsp(n, m, processing_times, verbose=False):
             problem += lpSum(
                 x[j, i, k] for j in range(n)
                 ) == 1, f"Machine_{i}_Job_{k}_constraint"
+
+    # preceding constraints
+    for K in range(1, times):
+        for j in range(n):
+            for k in range(times):
+                problem += lpSum(
+                    x[j, i, k] for j in range(n)
+                    ) == 1, f"Machine_{i}_Job_{k}_constraint"
 
     problem.solve(PULP_CBC_CMD(msg=0))
 
