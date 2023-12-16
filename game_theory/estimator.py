@@ -20,7 +20,7 @@ def estimate(sol: List[tuple], n: int, m: int):
         machines = [False for _ in range(m)]
 
         while k < len(sol):
-            j, i, dur = sol[k]
+            j, i, dur, *_ = sol[k]
 
             if jobs[j] or machines[i]:
                 break

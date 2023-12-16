@@ -51,7 +51,7 @@ def sign(x):
 
 def compare(l, r):
     if l[0] == r[0]:
-        return sign(l[1] - r[1])
+        return sign(l[3] - r[3])
     else:
         return 0
 
@@ -139,8 +139,9 @@ if __name__ == '__main__':
     sol = []
 
     for j in range(n):
+        idxs = [k for k in range(m)]
         for i in range(m):
-            sol.append((j, i, random.randint(1, 7)))
+            sol.append((j, i, random.randint(1, 7), idxs.pop(random.randint(0, len(idxs) - 1))))
     
     sol.sort(key=cmp_to_key(compare))
 
